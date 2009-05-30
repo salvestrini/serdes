@@ -59,7 +59,7 @@ DEVTODO_DB = $(top_srcdir)/.todo
 DNT_FLAGS  = --database=$(DNT_DB) --mono
 
 $(DNT_DB): $(DEVTODO_DB)
-	$(top_builddir)/src/devtodo-to-dnt	\
+	$(DEVTODO_TO_DNT)			\
 		--input=$(DEVTODO_DB)		\
 		--output=$(DNT_DB)		\
 		--force || {			\
@@ -68,7 +68,7 @@ $(DNT_DB): $(DEVTODO_DB)
 	}
 
 TODO: $(DNT_DB)
-	$(top_builddir)/src/dnt	$(DNT_FLAGS)	\
+	$(DNT) $(DNT_FLAGS)			\
 	       show				\
 	       --filter=not-done		\
 	       --line-format="* %t"		\
