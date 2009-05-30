@@ -2,6 +2,7 @@
 
 files-glob src/idlgen\.in
 files-glob src/.*py
+files-glob src/.*py\.in
 
 non-critical-internal Exceptions
 non-critical-internal Debug
