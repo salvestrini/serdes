@@ -1,0 +1,237 @@
+#! @PYTHON@ -tt
+
+#
+# Copyright (C) 2008, 2009 Francesco Salvestrini
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+
+try :
+    import sys
+except Exception, e:
+    print("Cannot import required system modules, bailing out ...")
+    print(str(e))
+    exit(-1)
+
+try :
+    import os
+    import getopt
+except Exception, e:
+    print("Cannot import required system modules, bailing out ...")
+    print(str(e))
+    sys.exit(-1)
+
+try :
+    from omniidl import idlast, idlvisitor, idlutil
+except Exception, e:
+    print("Cannot import required external modules, bailing out ...")
+    print(str(e))
+    sys.exit(-1)
+
+sys.path.append("@pkgvpythondir@")
+# Now start importing our modules
+
+# NOTE: Import Trace at first, in order to use traces consistently
+try :
+    # XXX FIXME: The ugliest way to read debug_enabled variable
+    from   Trace import *
+    import Trace
+except Exception, e:
+    # XXX FIXME: Add better error reporting ....
+    print("Cannot import package's own bootstrap modules, bailing out ...")
+    sys.exit(-1)
+
+# We are now able to use Trace module facilities
+
+try :
+    from   Command       import *
+except ImportError, e:
+    error("Cannot import package's own modules, bailing out ...")
+    sys.exit(-1)
+#except Exception, e:
+#    bug(str(e))
+
+try :
+    import warnings
+except Exception, e:
+    warning("Cannot import optional system modules, continuing ...")
+
+try :
+    from   Debug import *
+except Exception, e:
+    error("Cannot import package's debugging modules, bailing out ...")
+    sys.exit(-1)
+
+# We are now able to use Debug module facilities
+
+def hint(s) :
+    print(s)
+    print("Use `" + PROGRAM_NAME + " -h' for help")
+
+def version() :
+    print(PROGRAM_NAME + " (" + PACKAGE_NAME + ") " + PACKAGE_VERSION)
+    print("Copyright (C) 2008, 2009 Francesco Salvestrini")
+    print("")
+    print("This is free software.  You may redistribute copies of it under the terms of")
+    print("the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.")
+    print("There is NO WARRANTY, to the extent permitted by law.")
+
+class MainCommand(Command) :
+    def __init__(self, name, format, footer) :
+        Command.__init__(self, name, format, footer)
+
+    def authors(self) :
+        return [ "Francesco Salvestrini" ]
+
+def main(arguments) :
+
+    command = MainCommand("", "[OPTION]...", [])
+    command.add_option("-i", "--input",
+                       action = "store",
+                       dest   = "input",
+                       help   = "specify input file")
+    command.add_option("-o", "--output",
+                       action = "store",
+                       dest   = "output",
+                       help   = "specify output file")
+    command.add_option("-v", "--verbose",
+                       action = "store_true",
+                       dest   = "verbose",
+                       help   = "display verbosely")
+    command.add_option("-d", "--debug",
+                       action = "store_true",
+                       dest   = "debug",
+                       help   = "enable debug mode")
+    command.add_option("-n", "--dry-run",
+                       action = "store_true",
+                       dest   = "dry_run",
+                       help   = "do not write output file(s)")
+
+    # Parse command line
+    (opts, args) = command.parse_args(arguments[1:])
+
+    dry_run             = False
+    verbose_enabled     = False
+    Trace.debug_enabled = False
+
+    if (opts.verbose == True) :
+        verbose_enabled = True
+
+    if (opts.debug == True) :
+        Trace.debug_enabled = True
+
+    if (opts.dry_run == True) :
+        dry_run = True
+
+    if (opts.input == None) :
+        hint("Missing input file")
+        return 1
+    if (opts.output == None) :
+        hint("Missing output file")
+        return 1
+
+    #
+    # Work
+    #
+    debug("Starting")
+
+    retval = 0
+
+    try :
+        pass
+    # Transform our exceptions first
+    except Exceptions.ExplicitExit, e :
+        debug("Exit explicitly from option parsing with code " + str(e.code()))
+        retval = e.code()
+    except Exceptions.EParameters, e :
+        hint(e)
+    except Exceptions.EBase, e :
+        error(e)
+
+    # Transform other exceptions last
+    except IOError, e :
+        error(e)
+    except ValueError, e :
+        error(e)
+    except SystemExit, e :
+        bug("Explicit system exit called")
+    except AssertionError, e :
+        # Re-raise exception in order to be catched outside here ...
+        raise e
+    except Exception, e :
+        bug("Unhandled exception (" + str(e) + ")")
+    except :
+        bug("Unknown exception (" + str(e) + ")")
+
+    assert(type(retval) == int)
+
+    if (retval != 0) :
+        debug("Got an error (" + str(retval) + "), bailing out ...")
+        return retval
+    debug("No error running command")
+
+    debug("All operations completed successfully")
+    assert(retval == 0)
+    return retval
+
+if (__name__ == '__main__') :
+    retval = 1
+    try :
+        retval = main(sys.argv)
+
+    # We need to catch command related exceptions like we do in the subcommands
+    # try-except blocks (see the main block) because we are using the same
+    # class
+    except Exceptions.ExplicitExit, e :
+        debug("Exit explicitly from option parsing with code " + str(e.code()))
+        retval = e.code()
+    except Exceptions.EParameters, e :
+        hint(e)
+    except Exceptions.EBase, e :
+        error(e)
+
+    # AssertionError exceptions should be catched only here (in order to
+    # transform all them into bug()
+    except AssertionError, e :
+        try :
+            message = str(e)
+        except TypeError :
+            message = "cannot stringify assertion"
+        except :
+            message = "???"
+        if (message != "") :
+            message = "(" + message + ")"
+        bug("Assertion error " + message)
+
+    # Transform unhandled exceptions into bugs
+    except Exception, e :
+        try :
+            message = str(e)
+        except TypeError :
+            message = "cannot stringify exception"
+        except :
+            message = "???"
+        if (message != "") :
+            message = "(" + message + ")"
+        bug("Unhandled exception detected in main loop " + message)
+
+    # Transform unknown exceptions into bugs too
+    except :
+        bug("Unknown exception detected in main loop")
+
+    assert(type(retval) == int)
+
+    debug("Program execution completed with return value " + str(retval))
+    sys.exit(retval)
