@@ -4,7 +4,8 @@
 (p "In order to install the package into your system "
    "you will need:"
    (ul
-    (li (a (@ (href "http://www.python.org")) "Python > 2.5") )
+    (li (a (@ (href "http://www.perl.org"))               "Perl"     ) )
+    (li (a (@ (href "http://www.gnu.org/software/guile")) "Guile"    ) )
     )
    )
 

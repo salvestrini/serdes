@@ -21,7 +21,7 @@
 
 (p
  (script
-  (@ (src  "http://www.ohloh.net/p/286819/widgets/project_partner_badge.js")
+  (@ (src  "http://www.ohloh.net/p/26031/widgets/project_partner_badge.js")
      (type "text/javascript")))
 
  (a (@ (href "http://jigsaw.w3.org/css-validator/check?uri=referer"))
@@ -34,11 +34,11 @@
  (a (@ (href "http://www.nongnu.org/sitetool"))
   ,as_site_variable_PROGRAMNAME)
  ", hosted at "
- (a (@ (href "http://savannah.nongnu.org/projects/serdes"))
+ (a (@ (href "http://savannah.nongnu.org/projects/choicetool"))
   "Savannah")
  (br)
  "Please send broken links and other web page suggestions to "
- "<serdes-generic AT nongnu DOT org>, thank you."
+ "<choicetool-generic AT nongnu DOT org>, thank you."
  (br)
  "This page was last modified on "
  ,(strftime "%A %d %B %Y" (localtime (current-time)))

@@ -36,18 +36,6 @@ contents = {
 	};
 
 	content = {
-		id      = "p2_map";
-		source  = "@work_dir@/maps/p2.map";
-		filters = {
-			filter[0] = {
-				source      = "map";
-				destination = "sxml";
-				parameters  = "";
-			};
-		};
-	};
-
-	content = {
 		id      = "news_body";
 		source  = "news.sxml";
 		filters = {
@@ -71,29 +59,41 @@ contents = {
 		};
 	};
 
-        content = {
-                id      = "todos_body";
-                source  = "todos.sxml";
-                filters = {
-                        filter[0] = {
-                                source      = "sxml";
-                                destination = "sxml";
-                                parameters  = "";
-                        };
-                };
-        };
+	content = {
+		id      = "todos_body";
+		source  = "todos.sxml";
+		filters = {
+			filter[0] = {
+				source      = "sxml";
+				destination = "sxml";
+				parameters  = "";
+			};
+		};
+	};
 
-        content = {
-                id      = "todos_map";
-                source  = "@work_dir@/maps/todos.map";
-                filters = {
-                        filter[0] = {
-                                source      = "map";
-                                destination = "sxml";
-                                parameters  = "";
-                        };
-                };
-        };
+	content = {
+		id      = "todos_map";
+		source  = "@work_dir@/maps/todos.map";
+		filters = {
+			filter[0] = {
+				source      = "map";
+				destination = "sxml";
+				parameters  = "";
+			};
+		};
+	};
+
+	content = {
+		id      = "p2_map";
+		source  = "@work_dir@/maps/p2.map";
+		filters = {
+			filter[0] = {
+				source      = "map";
+				destination = "sxml";
+				parameters  = "";
+			};
+		};
+	};
 
 	content = {
 		id      = "p3_body";
@@ -134,6 +134,30 @@ contents = {
 	content = {
 		id      = "p4_map";
 		source  = "@work_dir@/maps/p4.map";
+		filters = {
+			filter[0] = {
+				source      = "map";
+				destination = "sxml";
+				parameters  = "";
+			};
+		};
+	};
+
+	content = {
+		id      = "p5_body";
+		source  = "grammar.scm";
+		filters = {
+			filter[0] = {
+				source      = "sxml";
+				destination = "sxml";
+				parameters  = "";
+			};
+		};
+	};
+
+	content = {
+		id      = "p5_map";
+		source  = "@work_dir@/maps/p5.map";
 		filters = {
 			filter[0] = {
 				source      = "map";

@@ -23,4 +23,8 @@ map = {
 		id     = "p4";
 		parent = "";
 	};
+	node = {
+		id     = "p5";
+		parent = "";
+	};
 };

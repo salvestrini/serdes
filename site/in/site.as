@@ -5,7 +5,7 @@ common = {
 };
 
 vars = {
-	var-sitename = "Development (Note) Tracker";
+	var-sitename = "SerDes";
 };
 
 include "contents.as"
