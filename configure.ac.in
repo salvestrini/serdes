@@ -93,6 +93,9 @@ AC_CONFIG_FILES([
 
 	data/Makefile
 
+	site/Makefile
+	site/in/Makefile
+
 	tools/Makefile
 	tools/maint/Makefile
 	tools/autotools/Makefile

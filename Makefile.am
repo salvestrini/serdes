@@ -26,11 +26,8 @@ SUBDIRS =					\
 	tools					\
 	src					\
 	data					\
-	docs
-
-# Base directories
-TOOLSDIR   = $(top_builddir)/tools
-SCRIPTSDIR = $(TOOLSDIR)/scripts
+	docs					\
+	site
 
 ##
 ## NOTE:
@@ -43,27 +40,120 @@ AUTOMAKE_OPTIONS = check-news
 ## NOTE:
 ##     Makefile.sub is automatically distributed by automake rules
 ##
-EXTRA_DIST =							\
-	BUGS TODO README NEWS COPYING AUTHORS INSTALL THANKS	\
-	bootstrap						\
-	configure.ac.in						\
+EXTRA_DIST =						\
+	TODO NEWS 					\
+	BUGS README COPYING AUTHORS INSTALL THANKS	\
+	bootstrap					\
+	configure.ac.in					\
+	python.af					\
 	.todo
 
 ##
 ## Maintainer related targets
 ##
 
-DNT_DB = $(top_srcdir)/.dnt.db
+MAINTAINERCLEANFILES =
+
+DNT_DB     = $(top_builddir)/.dnt.db
+DEVTODO_DB = $(top_srcdir)/.todo
+DNT_FLAGS  = --database=$(DNT_DB) --mono
+
+$(DNT_DB): $(DEVTODO_DB)
+	$(top_builddir)/src/devtodo-to-dnt	\
+		--input=$(DEVTODO_DB)		\
+		--output=$(DNT_DB)		\
+		--force || {			\
+		rm -f $(DNT_DB) ;		\
+		exit 1 ;			\
+	}
+
 TODO: $(DNT_DB)
-	$(DNT) --database=$(DNT_DB)		\
-	       --mono				\
-	       dump				\
-	       --format="* %t"			\
-	       --width=0			\
+	$(top_builddir)/src/dnt	$(DNT_FLAGS)	\
+	       show				\
 	       --filter=not-done		\
+	       --line-format="* %t"		\
+	       --width=0			\
+	       --indent-fill=""			\
+	       --unindent-fill=""		\
+	       --level-fill=""			\
 	       --output=TODO || {		\
 		rm -f TODO ;			\
 		exit 1 ;			\
+	}
+MAINTAINERCLEANFILES += TODO
+
+NEWS: $(DNT_DB)
+	echo "${PACKAGE_VERSION}:" > NEWS
+	script="$(GITTAG_TO_DATE)";				\
+	r_head="";						\
+	d_head="";						\
+	r_tail="";						\
+	d_tail="";						\
+	for i in `$$script | sed -e 's/\ /:/g' | sort -r -k 2`;	\
+	do							\
+		if test "x$$r_head" = "x"; then			\
+			r_head="`echo $$i | sed 's/^.*://'`";	\
+			d_head="`echo $$i | sed 's/:.*$$//'`";	\
+			continue;				\
+		else						\
+			if test "x$$d_head" = "x"; then		\
+				rm -f NEWS;			\
+				exit 1;				\
+			fi;					\
+		fi;						\
+		r_tail="`echo $$i | sed 's/^.*://'`";		\
+		d_tail="`echo $$i | sed 's/:.*$$//'`";		\
+		echo "$$r_head:" >> NEWS;			\
+		echo "* $$d_tail -> $$d_head" >> NEWS;		\
+		r_head="$$r_tail";				\
+		d_head="$$d_tail";				\
+	done || {						\
+		rm -f NEWS ;					\
+		exit 1;						\
+	};							\
+	d_tail="1970-01-01";					\
+	echo "$$r_head:" >> NEWS;				\
+	echo "* $$d_tail -> $$d_head" >> NEWS
+MAINTAINERCLEANFILES += NEWS
+
+AUTHORS:
+	rm -f AUTHORS                       &&                                  \
+	touch AUTHORS                       &&                                  \
+	cat $(srcdir)/AUTHORS.in >> AUTHORS &&                                  \
+	$(GITLOG_TO_COMMITTERS) | $(SED) -e 's,\(.*\),  \1,' >> AUTHORS &&      \
+	echo "" >> AUTHORS                  || {                                \
+	        rm -f AUTHORS ;                                                 \
+	        exit 1 ;                                                        \
+	}
+MAINTAINERCLEANFILES += AUTHORS
+
+ChangeLog:
+	$(GITLOG_TO_CHANGELOG) > ChangeLog || {	\
+		rm -f ChangeLog ;		\
+		exit 1 ;			\
+	}
+MAINTAINERCLEANFILES += ChangeLog
+
+dist-hook: NEWS TODO ChangeLog
+
+dist-gpg: dist
+	gpg --yes -b --use-agent					   \
+		-o $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz.sig	   \
+		$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz          &&   \
+	gpg --verify $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz.sig || { \
+		rm -f $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz.sig ;   \
+		exit 1 ;						   \
+	}
+MAINTAINERCLEANFILES += $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz.sig
+
+dist-upload: dist-gpg
+	chmod 644 $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz     &&	\
+	chmod 644 $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz.sig &&	\
+	scp $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz		\
+	    $${USER}@dl.sv.nongnu.org:/releases/dnt                &&	\
+	scp $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz.sig		\
+	    $${USER}@dl.sv.nongnu.org:/releases/dnt                || {	\
+		exit 1 ;						\
 	}
 
 announcement:
@@ -74,12 +164,6 @@ announcement:
 	  --curr=$(PACKAGE_VERSION)		\
 	  --gpg-key-id=TEST			\
 	  --url-dir=TEST
-
-dist-hook:
-	$(GITLOG_TO_CHANGELOG) > $(distdir)/ChangeLog || {	\
-		rm -f ChangeLog ;				\
-		exit 1 ;					\
-	}
 
 site: all
 	(cd site && $(MAKE) $(AM_MAKEFLAGS) site)
