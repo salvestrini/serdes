@@ -1,0 +1,10 @@
+# Input file for python-autofrisk
+
+files-glob src/idlgen\.in
+files-glob src/.*py
+
+non-critical-internal Exceptions
+non-critical-internal Debug
+non-critical-internal Trace
+
+#non-critical-external strict[ \t]*.*
