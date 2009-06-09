@@ -63,6 +63,11 @@ AM_PATH_PYTHON([2.5],[:],
 PYTHON_AUTOFRISK_CHECKS
 PYTHON_AUTOFRISK_SUMMARY
 
+AC_PATH_PROG([OMNIIDL], [omniidl])
+AS_IF([test -z "$OMNIIDL"],[
+	AC_MSG_ERROR([Missing required omniidl program])
+])
+
 #
 # The API version is the base version.  We must guarantee
 # compatibility for all releases with the same API version.

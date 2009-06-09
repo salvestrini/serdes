@@ -50,7 +50,8 @@ do_subst_MAINTAINER = \
 
 do_subst_SPECIFIC = \
   -e 's,[@]PYTHON[@],$(PYTHON),g' \
-  -e 's,[@]pkgvpythondir[@],$(pkgvpythondir),g'
+  -e 's,[@]pkgvpythondir[@],$(pkgvpythondir),g' \
+  -e 's,[@]OMNIIDL[@],$(OMNIIDL),g'
 
 do_subst = $(SED) \
   $(do_subst_AUTOTOOLS) \
