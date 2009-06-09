@@ -143,30 +143,6 @@ contents = {
 		};
 	};
 
-	content = {
-		id      = "p5_body";
-		source  = "grammar.scm";
-		filters = {
-			filter[0] = {
-				source      = "sxml";
-				destination = "sxml";
-				parameters  = "";
-			};
-		};
-	};
-
-	content = {
-		id      = "p5_map";
-		source  = "@work_dir@/maps/p5.map";
-		filters = {
-			filter[0] = {
-				source      = "map";
-				destination = "sxml";
-				parameters  = "";
-			};
-		};
-	};
-
         content = {
                 id     = "footer";
                 source = "./footer.sxml";
