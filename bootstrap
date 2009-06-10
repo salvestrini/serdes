@@ -59,22 +59,24 @@ LIBTOOLIZE=`( missing glibtoolize || missing libtoolize)`
 GNULIBTOOL=`missing gnulib-tool`
 GIT=`missing git`
 SED=`missing sed`
+PYTHON_AUTOFRISK=`missing python-autofrisk`
 
 #
 # Dump some useful informations
 #
 echo "$ME: Dumping build-tools information ..."
-for tool in	\
-    $SED        \
-    $GIT        \
-    $AUTOHEADER	\
-    $AUTOCONF	\
-    $LIBTOOL	\
-    $LIBTOOLIZE	\
-    $ACLOCAL	\
-    $AUTOMAKE	\
-    $AUTORECONF	\
-    $GNULIBTOOL \
+for tool in                                     \
+    $SED                                        \
+    $GIT                                        \
+    $AUTOHEADER                                 \
+    $AUTOCONF                                   \
+    $LIBTOOL                                    \
+    $LIBTOOLIZE                                 \
+    $ACLOCAL                                    \
+    $AUTOMAKE                                   \
+    $AUTORECONF                                 \
+    $GNULIBTOOL                                 \
+    $PYTHON_AUTOFRISK                           \
     ;
 do
     if test -n "$tool" ; then
@@ -109,7 +111,7 @@ rm -rf `find ./ -name ".deps"`                       || exit 1
 # Autofrisk python modules
 #
 echo "$ME: Python autofrisk ..."
-./tools/maint/python-autofrisk ./python.af && \
+$PYTHON_AUTOFRISK ./python.af && \
     cat ./python.af.m4 > ./tools/autotools/m4/python_autofrisk.m4 && \
     rm -f ./python.af.m4 || {
     rm -f ./python.af.m4
