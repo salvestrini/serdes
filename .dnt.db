@@ -10,5 +10,8 @@
     </entry>
     <entry priority="low" start="1243950893">
         Release 0.4.0
+        <entry priority="medium" start="1244669271">
+            Fix bootstrap in order to exit when a missing program is called
+        </entry>
     </entry>
     </root>
