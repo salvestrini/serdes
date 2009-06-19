@@ -25,6 +25,7 @@ config.log
 config.status
 
 src/idlgen
+src/ply/*.pyc
 
 tools/maint/fetch
 tools/maint/whitespace-detect

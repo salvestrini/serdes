@@ -22,6 +22,22 @@ include $(top_srcdir)/Makefile.sub
 
 bin_SCRIPTS =					\
 	idlgen
+EXTRA_DIST  =
+
+plydir = $(pkgvpythondir)/ply
+
+ply_SRCS =					\
+	ply/__init__.py				\
+	ply/cpp.py				\
+	ply/ctokens.py				\
+	ply/lex.py				\
+	ply/yacc.py
+
+ply_PYTHON =					\
+	$(ply_SRCS)
+
+EXTRA_DIST +=					\
+	ply/README
 
 pkgvpython_PYTHON =				\
 	__init__.py				\
@@ -49,7 +65,9 @@ CLEANFILES =					\
 	$(nodist_pkgvpython_PYTHON)		\
 	$(bin_SCRIPTS)				\
 	*.pyc					\
-	*.pyo
+	*.pyo					\
+	ply/*.pyc				\
+	ply/*.pyo
 
 idlgen: $(srcdir)/idlgen.in Makefile
 	( rm -f $@ $@.tmp && \
