@@ -59,8 +59,6 @@ ALL_PYTHON_SRCS =				\
 	$(nodist_pkgvpython_PYTHON)		\
 	$(commands_PYTHON)
 
-EXTRA_DIST =
-
 CLEANFILES =					\
 	$(nodist_pkgvpython_PYTHON)		\
 	$(bin_SCRIPTS)				\
