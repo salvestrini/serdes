@@ -11,4 +11,8 @@ non-critical-internal Trace
 non-critical-internal Autoconfiguration
 non-critical-internal Command
 
+non-critical-internal ply
+non-critical-internal ply.lex
+non-critical-internal lex
+
 #non-critical-external strict[ \t]*.*
