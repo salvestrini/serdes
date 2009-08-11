@@ -1,53 +1,48 @@
 *~
-.emacs.desktop
 .deps
 .dirstamp
 *.o
 *.a
-TAGS
-
-build
-
 Makefile.in
 Makefile
-aclocal.m4
-autom4te.cache
 
-ChangeLog
-VERSION
-NEWS
-TODO
-AUTHORS
+/ChangeLog
+/VERSION
+/NEWS
+/TODO
+/AUTHORS
 
-configure
-configure.ac
-config.log
-config.status
+/TAGS
+/aclocal.m4
+/autom4te.cache
 
-src/idlgen
-src/ply/*.pyc
+/configure
+/configure.ac
+/config.log
+/config.status
 
-tools/maint/fetch
-tools/maint/whitespace-detect
-tools/maint/gitlog-to-committers
-tools/maint/gittag-to-date
+/src/idlgen
+/src/*.pyc
+/src/ply/*.pyc
+/src/Autoconfiguration.py
 
-tools/autotools/install-sh
-tools/autotools/missing
-tools/autotools/mdate-sh
-tools/autotools/texinfo.tex
-tools/autotools/py-compile
+/tools/maint/fetch
+/tools/maint/whitespace-detect
+/tools/maint/gitlog-to-committers
+/tools/maint/gittag-to-date
 
-tools/autotools/m4/python_autofrisk.m4
+/tools/autotools/install-sh
+/tools/autotools/missing
+/tools/autotools/mdate-sh
+/tools/autotools/texinfo.tex
+/tools/autotools/py-compile
 
-src/idlgen
-src/*.pyc
-src/Autoconfiguration.py
+/tools/autotools/m4/python_autofrisk.m4
 
-site/in/.sitetool
-site/in/site.stamp
-site/in/todos.sxml
-site/in/todos.dump
-site/in/news.sxml
-site/in/news.dump
-site/out/*
+/site/in/.sitetool
+/site/in/site.stamp
+/site/in/todos.sxml
+/site/in/todos.dump
+/site/in/news.sxml
+/site/in/news.dump
+/site/out/*
