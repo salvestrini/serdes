@@ -171,5 +171,7 @@ maintainer-check-parameters: Makefile $(bin_SCRIPTS)
 		fi ; \
 	done
 
-maintainer-check-local: Makefile maintainer-check-parameters
+maintainer-check-whitespaces: Makefile
 	$(WHITESPACE_DETECT) $(ALL_PYTHON_SRCS)
+
+maintainer-check-local: Makefile maintainer-check-whitespaces maintainer-check-parameters
