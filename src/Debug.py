@@ -52,7 +52,7 @@ def _stack_dump(shortcut = True) :
 
         frame_no = 0
         for (filename, line_number, function_name, text) in stack:
-            if (shortcut == True) :
+            if (shortcut is True) :
                 # Avoid dumping past bug() or bug_on()
                 if ((function_name == "bug") or (function_name == "bug_on")) :
                     error("  %s - ... Useless internals follow ..."
@@ -99,7 +99,7 @@ def bug(s = "") :
     os._exit(33)
 
 def bug_on(v) :
-    if (v == True) :
+    if (v is True) :
         bug("Unsatisfied expression " + str(v))
 
 # Test

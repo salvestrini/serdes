@@ -18,21 +18,22 @@
 
 import sys
 from   optparse   import OptionParser
-import textwrap
+#import textwrap
+import string
 
 from   Trace      import *
 from   Debug      import *
 import Exceptions
 
-class Command(OptionParser) :
+class Command(OptionParser, object) :
     # NOTE: An empty string is an allowed name (main uses it)
     def __init__(self, name, format = "[OPTION]...", footer = []) :
         assert(name != None)
-        assert(type(name) == str)
+        assert(isinstance(name, str))
         assert(format != None)
-        assert(type(format) == str)
+        assert(isinstance(format, str))
         assert(footer != None)
-        assert(type(footer) == list)
+        assert(isinstance(footer, list))
 
         self.__name   = name
 
@@ -40,7 +41,7 @@ class Command(OptionParser) :
         tmp = ""
         if (len(footer) > 0) :
             for i in range(0, len(footer)) :
-                assert(type(footer[i]) == str)
+                assert(isinstance(footer[i], str))
                 tmp = tmp + footer[i]
                 if (i != (len(footer) - 1)) :
                     tmp = tmp + "\n"
@@ -64,21 +65,24 @@ class Command(OptionParser) :
                               )
         OptionParser.disable_interspersed_args(self)
 
+    def authors(self) :
+        bug("No authors() method provided by the derived class")
+
     # Override OptParse print_version() method
     def print_version(self, file = None) :
         OptionParser.print_version(self, file)
 
         assert(hasattr(self, "authors"))
         assert(callable(self.authors))
-        assert(type(self.authors()) == list)
+        assert(isinstance(self.authors(), list))
 
         print >> file, ""
         j = 0
         for i in self.authors() :
             if (j == 0) :
-                header = "Copyright (C) 2008 "
+                header = "Copyright (C) 2008, 2009 "
             else :
-                header = "                   "
+                header = "                         "
             print >> file, header + i
             j = j + 1
         print >> file, ""
@@ -92,14 +96,14 @@ class Command(OptionParser) :
         # Give the caller a copy of our internal data ...
         return str(self.__name)
     def name_set(self, n) :
-        assert(type(n) == str)
+        assert(isinstance(n, str))
         assert(n != "")
         assert(n != None)
-        assert(n == string.rstrip(string.lstrip(n)))
+        assert(n == string.strip(n))
 
         self.__name = n
 
-    name = property(name_get, name_set)
+    name = property(name_get, name_set, None, None)
 
     # Override OptParse print_help() method
     def print_help(self, file = sys.stdout) :

@@ -20,13 +20,8 @@ import sys
 
 from   Autoconfiguration import *
 
-debug_enabled = False
-
-def debug(s) :
-    assert(s != None)
-    assert(s != "")
-    if (debug_enabled == True) :
-        sys.stdout.write(PROGRAM_NAME + ": " + str(s) + '\n')
+debug_enabled   = False
+warning_enabled = False
 
 def error(s) :
     assert(s != None)
@@ -36,7 +31,14 @@ def error(s) :
 def warning(s) :
     assert(s != None)
     assert(s != "")
-    sys.stdout.write(PROGRAM_NAME + ": " + str(s) + '\n')
+    if (warning_enabled is True) :
+        sys.stdout.write(PROGRAM_NAME + ": " + str(s) + '\n')
+
+def debug(s) :
+    assert(s != None)
+    assert(s != "")
+    if (debug_enabled is True) :
+        sys.stdout.write(PROGRAM_NAME + ": " + str(s) + '\n')
 
 # Test
 if (__name__ == '__main__') :
