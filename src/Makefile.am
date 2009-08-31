@@ -41,11 +41,12 @@ EXTRA_DIST +=					\
 
 pkgvpython_PYTHON =				\
 	__init__.py				\
+	Configuration.py			\
+	INI.py					\
 	Trace.py				\
 	Exceptions.py				\
-	Debug.py				\
-	Configuration.py			\
-	Command.py
+	Command.py				\
+	Debug.py
 
 nodist_pkgvpython_PYTHON =			\
 	Autoconfiguration.py
@@ -54,7 +55,7 @@ BUILT_SOURCES =					\
 	Autoconfiguration.py
 
 ## NOTE: The following variable is used by maintainer-check-local target
-ALL_PYTHON_SRCS =				\
+OUR_PYTHON_SRCS =				\
 	$(pkgvpython_PYTHON)			\
 	$(nodist_pkgvpython_PYTHON)		\
 	$(commands_PYTHON)
@@ -171,7 +172,12 @@ maintainer-check-parameters: Makefile $(bin_SCRIPTS)
 		fi ; \
 	done
 
-maintainer-check-whitespaces: Makefile
-	$(WHITESPACE_DETECT) $(ALL_PYTHON_SRCS)
+PYCHECKER_FLAGS = --stdlib --limit 50 --maxlines 260
 
-maintainer-check-local: Makefile maintainer-check-whitespaces maintainer-check-parameters
+maintainer-check-python: Makefile $(OUR_PYTHON_SRCS)
+	$(PYCHECKER) $(PYCHECKER_FLAGS) $(OUR_PYTHON_SRCS)
+
+maintainer-check-whitespaces: Makefile
+	$(WHITESPACE_DETECT) $(OUR_PYTHON_SRCS)
+
+maintainer-check-local: Makefile maintainer-check-whitespaces maintainer-check-python maintainer-check-parameters

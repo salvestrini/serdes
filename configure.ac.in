@@ -53,6 +53,7 @@ AX_PATH_MISSING([WGET],           [wget])
 AX_PATH_MISSING([DNT],            [dnt])
 AX_PATH_MISSING([DEVTODO_TO_DNT], [devtodo-to-dnt])
 AX_PATH_MISSING([PERL],           [perl])
+AX_PATH_MISSING([PYCHECKER],      [pychecker])
 
 #
 # Runtime related programs
