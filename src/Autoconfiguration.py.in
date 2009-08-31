@@ -30,7 +30,8 @@ PACKAGE_BUGREPORT = "@PACKAGE_BUGREPORT@"
 # Package variables
 #
 
-PROGRAM_NAME      = "idlen"
+PROGRAM_NAME      = "idlgen"
+SYSCONFDIR        = "@sysconfdir@"
 
 # Test
 if (__name__ == '__main__') :
