@@ -30,13 +30,10 @@ DOWNLOAD = 					\
 	ax_compare_version.m4			\
 	ax_missing_prog.m4			\
 	ax_path_missing.m4			\
-	ax_prog_python_version.m4		\
-	ax_with_python.m4			\
 	ax_with_prog.m4
 
 MACROS =					\
-	$(DOWNLOAD)				\
-	ax_prog_python_modules.m4
+	$(DOWNLOAD)
 
 update-local: Makefile
 	rm -r -f fetch-dir && \
