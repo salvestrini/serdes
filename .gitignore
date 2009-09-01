@@ -37,7 +37,7 @@ Makefile
 /tools/autotools/texinfo.tex
 /tools/autotools/py-compile
 
-/tools/autotools/m4/python_autofrisk.m4
+/tools/autotools/m4/python-autofrisk-data.m4
 
 /site/in/.sitetool
 /site/in/site.stamp
