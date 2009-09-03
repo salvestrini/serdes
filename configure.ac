@@ -20,7 +20,11 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-AC_INIT([SerDes],[@VERSION@],[salvestrini@gmail.com],[serdes])
+AC_INIT([SerDes],
+        m4_esyscmd([tools/maint/git-version-gen .tarball-version]),
+        [salvestrini@gmail.com],
+        [serdes],
+        [http://github.com/salvestrini/boar])
 
 # Check for a recent version of autoconf
 AC_PREREQ([2.64])
