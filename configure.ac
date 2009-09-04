@@ -24,7 +24,7 @@ AC_INIT([SerDes],
         m4_esyscmd([tools/maint/git-version-gen .tarball-version]),
         [salvestrini@gmail.com],
         [serdes],
-        [http://github.com/salvestrini/boar])
+        [http://github.com/salvestrini/serdes])
 
 # Check for a recent version of autoconf
 AC_PREREQ([2.64])
@@ -52,7 +52,6 @@ AC_PROG_SED
 AC_PROG_AWK
 
 AX_PATH_MISSING([HELP2MAN],       [help2man])
-AX_PATH_MISSING([SITETOOL],       [sitetool])
 AX_PATH_MISSING([WGET],           [wget])
 AX_PATH_MISSING([DNT],            [dnt])
 AX_PATH_MISSING([DEVTODO_TO_DNT], [devtodo-to-dnt])
@@ -103,9 +102,6 @@ AC_CONFIG_FILES([
 	src/Makefile
 
 	data/Makefile
-
-	site/Makefile
-	site/in/Makefile
 
 	tools/Makefile
 	tools/maint/Makefile
