@@ -177,7 +177,7 @@ PYCHECKER_FLAGS = --stdlib --limit 50 --maxlines 260
 maintainer-check-python: Makefile $(OUR_PYTHON_SRCS)
 	$(PYCHECKER) $(PYCHECKER_FLAGS) $(OUR_PYTHON_SRCS)
 
-maintainer-check-whitespaces: Makefile
+maintainer-check-whitespaces: Makefile $(OUR_PYTHON_SRCS)
 	$(WHITESPACE_DETECT) $(OUR_PYTHON_SRCS)
 
 maintainer-check-local: Makefile maintainer-check-whitespaces maintainer-check-python maintainer-check-parameters
