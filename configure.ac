@@ -72,6 +72,7 @@ AS_IF([test -z "$OMNIIDL"],[
 	AC_MSG_ERROR([Missing required omniidl program])
 ])
 
+AX_SPLIT_VERSION($PACKAGE_VERSION, AX_MAJOR_VERSION, AX_MINOR_VERSION, AX_MICRO_VERSION, AX_EXTRA_VERSION)
 #
 # The API version is the base version.  We must guarantee
 # compatibility for all releases with the same API version.
@@ -83,7 +84,6 @@ AS_IF([test -z "$OMNIIDL"],[
 # * Prereleases on the trunk are all incompatible -- 1.5.1 and 1.5.2
 #   aren't the same.
 #
-AX_SPLIT_VERSION($PACKAGE_VERSION)
 API_VERSION="${AX_MAJOR_VERSION}.${AX_MINOR_VERSION}"
 AC_SUBST(API_VERSION)
 
