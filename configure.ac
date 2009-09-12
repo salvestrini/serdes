@@ -51,12 +51,11 @@ AC_PROG_GREP
 AC_PROG_SED
 AC_PROG_AWK
 
+AX_PATH_MISSING([PERL],           [perl])
+AX_PATH_MISSING([PYCHECKER],      [pychecker])
 AX_PATH_MISSING([HELP2MAN],       [help2man])
 AX_PATH_MISSING([WGET],           [wget])
 AX_PATH_MISSING([DNT],            [dnt])
-AX_PATH_MISSING([DEVTODO_TO_DNT], [devtodo-to-dnt])
-AX_PATH_MISSING([PERL],           [perl])
-AX_PATH_MISSING([PYCHECKER],      [pychecker])
 
 #
 # Runtime related programs
