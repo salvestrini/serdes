@@ -3,12 +3,12 @@
 	Default DB name
 	<entry priority="veryhigh" start="1238019029">
 		Release 0.1.0
-		<entry priority="veryhigh" start="1252443522">
+		<entry end="1256059907" priority="veryhigh" start="1252443522">
 			Rearrange the build-related code (macros, makefiles, bootstrap, gnulib-use)
 		</entry>
 		<entry priority="high" start="1253139050">
 			Update build
-			<entry priority="high" start="1253139050">
+			<entry end="1256059901" priority="high" start="1253139050">
 				Fix package version in order to handle git versioning
 			</entry>
 			<entry end="1253622075" priority="high" start="1253139050">
