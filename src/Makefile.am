@@ -180,4 +180,11 @@ maintainer-check-python: Makefile $(OUR_PYTHON_SRCS)
 maintainer-check-whitespaces: Makefile $(OUR_PYTHON_SRCS)
 	$(WHITESPACE_DETECT) $(OUR_PYTHON_SRCS)
 
-maintainer-check-local: Makefile maintainer-check-whitespaces maintainer-check-python maintainer-check-parameters
+maintainer-check-wordwraps: Makefile $(OUR_PYTHON_SRCS)
+	$(WORDWRAP_DETECT) $(OUR_PYTHON_SRCS)
+
+maintainer-check-local: Makefile
+	maintainer-check-whitespaces
+	maintainer-check-wordwraps
+	maintainer-check-python
+	maintainer-check-parameters
