@@ -51,11 +51,12 @@ AC_PROG_GREP
 AC_PROG_SED
 AC_PROG_AWK
 
-AX_PATH_MISSING([PERL],           [perl])
-AX_PATH_MISSING([PYCHECKER],      [pychecker])
-AX_PATH_MISSING([HELP2MAN],       [help2man])
-AX_PATH_MISSING([WGET],           [wget])
-AX_PATH_MISSING([DNT],            [dnt])
+AX_PATH_MISSING([PERL],      [perl])
+AX_PATH_MISSING([PYCHECKER], [pychecker])
+AX_PATH_MISSING([HELP2MAN],  [help2man])
+AX_PATH_MISSING([WGET],      [wget])
+AX_PATH_MISSING([DNT],       [dnt])
+AX_PATH_MISSING([SORT],      [sort])
 
 #
 # Runtime related programs
@@ -94,5 +95,6 @@ AC_CONFIG_FILES([tools/maint/wordwrap-detect],     [chmod +x tools/maint/wordwra
 AC_CONFIG_FILES([tools/maint/whitespace-detect],   [chmod +x tools/maint/whitespace-detect])
 AC_CONFIG_FILES([tools/maint/gitlog-to-committers],[chmod +x tools/maint/gitlog-to-committers])
 AC_CONFIG_FILES([tools/maint/gittag-to-date],      [chmod +x tools/maint/gittag-to-date])
+AC_CONFIG_FILES([tools/maint/releases-to-news],    [chmod +x tools/maint/releases-to-news])
 
 AC_OUTPUT
