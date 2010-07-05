@@ -27,7 +27,7 @@ AC_INIT([SerDes],
         [http://github.com/salvestrini/serdes])
 
 # Check for a recent version of autoconf
-AC_PREREQ([2.64])
+AC_PREREQ([2.65])
 
 # Place/find all autotools related files in the following directories
 AC_CONFIG_AUX_DIR([tools/autotools])
@@ -38,7 +38,7 @@ AC_CONFIG_SRCDIR([src/idlgen.in])
 # For automake options (AM_INIT_AUTOMAKE options) see Makefile.am
 # file, AUTOMAKE_OPTIONS variable
 #
-AM_INIT_AUTOMAKE([1.10 foreign std-options -Wall color-tests])
+AM_INIT_AUTOMAKE([1.11.1 foreign std-options -Wall color-tests])
 
 #
 # Build related programs
